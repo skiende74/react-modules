@@ -2,6 +2,8 @@ import useInput, { InputState } from "./domains/useInput";
 import { Validator } from "./domains/validation";
 import validations from "./domains/validations";
 import { makeOnBlur, makeOnChange } from "./domains/makeCallback";
+import { useEffect } from "react";
+import { flatten } from "./utils/util";
 
 const validators: Validator[] = [
   {
@@ -22,7 +24,9 @@ const validators: Validator[] = [
 const useExpiryDate = () => {
   const expiryDates: InputState[] = [useInput(""), useInput("")];
 
-  validations(expiryDates, validators);
+  useEffect(() => {
+    validations(expiryDates, validators);
+  }, [flatten(expiryDates, "value"), flatten(expiryDates, "status")]);
 
   const onChanges = expiryDates.map(makeOnChange);
   const onBlurs = expiryDates.map(makeOnBlur);

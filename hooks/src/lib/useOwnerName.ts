@@ -1,6 +1,7 @@
 import useInput, { InputState } from "./domains/useInput";
 import validation, { Validator } from "./domains/validation";
 import { makeOnBlur, makeOnChange } from "./domains/makeCallback";
+import { useEffect } from "react";
 
 const MAX_LENGTH = 30;
 const validators: Validator[] = [
@@ -20,7 +21,9 @@ const validators: Validator[] = [
 const useOwnerName = () => {
   const ownerName: InputState = useInput("");
 
-  validation(ownerName, validators);
+  useEffect(() => {
+    validation(ownerName, validators);
+  }, [ownerName.value, ownerName.status]);
 
   const onChange = makeOnChange(ownerName);
   const onBlur = makeOnBlur(ownerName);

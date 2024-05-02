@@ -1,6 +1,7 @@
 import useInput, { InputState } from "./domains/useInput";
 import validation, { Validator } from "./domains/validation";
 import { makeOnBlur, makeOnChange } from "./domains/makeCallback";
+import { useEffect } from "react";
 
 const VALID_LENGTH = 4;
 const validators: Validator[] = [
@@ -15,14 +16,15 @@ const validators: Validator[] = [
   },
 ];
 const usePassword = () => {
-  const ownerName: InputState = useInput("");
+  const password: InputState = useInput("");
 
-  validation(ownerName, validators);
+  useEffect(() => {
+    validation(password, validators);
+  }, [password.value, password.status]);
+  const onChange = makeOnChange(password);
+  const onBlur = makeOnBlur(password);
 
-  const onChange = makeOnChange(ownerName);
-  const onBlur = makeOnBlur(ownerName);
-
-  return { ownerName, onChange, onBlur };
+  return { password, onChange, onBlur };
 };
 
 export default usePassword;

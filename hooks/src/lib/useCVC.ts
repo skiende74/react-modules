@@ -1,6 +1,7 @@
 import useInput, { InputState } from "./domains/useInput";
 import validation, { Validator } from "./domains/validation";
 import { makeOnBlur, makeOnChange } from "./domains/makeCallback";
+import { useEffect } from "react";
 
 const COMPLETE_LENGTH = 3;
 const validators: Validator[] = [
@@ -17,8 +18,9 @@ const validators: Validator[] = [
 const useCVC = () => {
   const CVC: InputState = useInput("");
 
-  validation(CVC, validators);
-
+  useEffect(() => {
+    validation(CVC, validators);
+  }, [CVC.value, CVC.status]);
   const onChange = makeOnChange(CVC);
   const onBlur = makeOnBlur(CVC);
 
