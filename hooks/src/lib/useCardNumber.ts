@@ -4,27 +4,22 @@ import validations from "./domains/validations";
 import { makeOnBlur, makeOnChange } from "./domains/makeCallback";
 import { flatten } from "./utils/util";
 import { useEffect } from "react";
+import { makeLengthValidator } from "./utils/validators";
 
 const validators: Validator[] = [
   {
     validate: (value) => /^\d*$/.test(value),
     errorMessage: "숫자만 입력 가능합니다.",
   },
-  {
-    validate: (value) => value.length === 4,
-    errorMessage: "필드의 길이는 4여야합니다.",
-    type: "blur",
-  },
+  makeLengthValidator(4),
 ];
 const useCardNumber = () => {
   const cardNumberStates: InputState[] = [useInput(""), useInput(""), useInput(""), useInput("")];
 
-  useEffect(() => {
-    validations(cardNumberStates, validators);
-  }, [flatten(cardNumberStates, "value"), flatten(cardNumberStates, "status")]);
-  const onChanges = cardNumberStates.map(makeOnChange);
-  const onBlurs = cardNumberStates.map(makeOnBlur);
-  return { cardNumberStates, onChanges, onBlurs };
+  const { states, onChanges, onBlurs } = useInputs(cardNumberStates);
+  return { states: states, onChanges, onBlurs };
 };
+
+
 
 export default useCardNumber;

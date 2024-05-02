@@ -11,16 +11,16 @@ const validators: Validator[] = [
     errorMessage: "유효하지 않은 카드사입니다.",
   },
 ];
-const usePassword = () => {
-  const ownerName: InputState = useInput("");
+const useCardCompany = () => {
+  const cardCompany: InputState = useInput("");
 
   useEffect(() => {
-    validation(ownerName, validators);
-  }, [ownerName.value, ownerName.status]);
-  const onChange = makeOnChange(ownerName);
-  const onBlur = makeOnBlur(ownerName);
+    validation(cardCompany, validators);
+  }, [cardCompany.value, cardCompany.status]);
+  const onChange = makeOnChange(cardCompany);
+  const onBlur = makeOnBlur(cardCompany);
 
-  return { ownerName, onChange, onBlur };
+  return { state: cardCompany, onChange, onBlur };
 };
 
-export default usePassword;
+export default useCardCompany;
