@@ -3,17 +3,21 @@ import { css } from "@emotion/css";
 import "../../reset.css";
 
 export const POSITIONS = ["top", "bottom", "center"] as const;
-export type Position = (typeof POSITIONS)[number];
 export const SIZES = ["small", "medium", "large"] as const;
+export type Position = (typeof POSITIONS)[number];
 export type ModalSize = (typeof SIZES)[number];
 
-interface ModalPositionerProps {
+interface ModalPositionerProps extends React.HTMLAttributes<HTMLDivElement> {
   position?: Position;
-  size?: ModalSize;
+  widthSize?: ModalSize;
   children: ReactNode;
 }
-const Positioner = ({ position = "center", size = "medium", children }: ModalPositionerProps) => {
-  return <div className={css(modalContainerCSS, positionCSS[position], sizeCSS[size])}>{children}</div>;
+const Positioner = ({ position = "center", widthSize = "medium", children, ...rest }: ModalPositionerProps) => {
+  return (
+    <div className={css(modalContainerCSS, positionCSS[position], sizeWidthCSS(widthSize))} {...rest}>
+      {children}
+    </div>
+  );
 };
 
 const Header = ({
@@ -123,6 +127,15 @@ const headerContainerCSS = css`
   align-items: center;
   justify-content: space-between;
 `;
+
+const sizeWidthCSS = (width: string) => {
+  if (width === "small" || width === "medium" || width === "large") {
+    return sizeCSS[width];
+  }
+  return css`
+    width: ${width};
+  `;
+};
 
 const sizeCSS = {
   small: css`

@@ -24,7 +24,7 @@ function ConfirmLabel({
 }: ConfirmModalProps) {
   return (
     <Modal isOpen={isOpen} closeModal={closeModal}>
-      <Modal.Positioner position="center" size={size}>
+      <Modal.Positioner position="center" widthSize={size}>
         <Modal.Header title={title} closeButton={true} onClose={closeModal} />
         <Modal.Content description={description} />
         <Modal.Footer

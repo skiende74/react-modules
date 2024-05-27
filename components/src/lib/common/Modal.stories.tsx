@@ -38,7 +38,7 @@ const ModalWrapper = ({
 
   return (
     <Modal isOpen={isOpen} closeModal={closeModal}>
-      <Modal.Positioner position={position} size={size}>
+      <Modal.Positioner position={position} widthSize={size}>
         <Modal.Header title={title} closeButton={closeButton} onClose={closeModal} />
         <Modal.Content description={description}>{children}</Modal.Content>
         <Modal.Footer

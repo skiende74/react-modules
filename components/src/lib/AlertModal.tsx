@@ -13,7 +13,7 @@ interface AlertModalProps {
 function AlertModal({ isOpen, closeModal, title, description, confirmLabel, size }: AlertModalProps) {
   return (
     <Modal isOpen={isOpen} closeModal={closeModal}>
-      <Modal.Positioner position="center" size={size}>
+      <Modal.Positioner position="center" widthSize={size}>
         <Modal.Header title={title} closeButton={true} onClose={closeModal} />
         <Modal.Content description={description} />
         <Modal.Footer confirmLabel={confirmLabel} onConfirm={closeModal} align="horizontal" buttonWidth="80px" />
